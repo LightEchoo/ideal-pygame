@@ -16,15 +16,14 @@ class main:
         self.Clock.tick(120) #设置帧数
 
     def get_data():
-        # Map = map.map()
+        Map = map.map()
         Player = player.player()
-        # return Map, Player    
-        return Player
+        return Map, Player    
 
 
     def run_it(self):
-        # Map, Player = main.get_data()
-        Player =  main.get_data()
+        Map, Player = main.get_data()
+        # Player =  main.get_data()
         Running = True
         while Running == True:
             for Event in pygame.event.get():
@@ -34,7 +33,8 @@ class main:
                 Player.inForEventOperator(Event) #调用移动函数
             
             # Map.show_block_floor(self.Screen) #生成地图
-            Player.outForEventOperator(self.Screen)
+            Map.show_block_floor(self.Screen)
+            Player.outForEventOperator()
             pygame.display.flip()
 
     def quit(Event):
