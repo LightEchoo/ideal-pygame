@@ -36,7 +36,7 @@ class main:
                 Player.inForEventOperator(Event) #调用移动函数
             
             for block in Map.blocks:
-                main.check_collision(Player, block)
+                Player.check_collision(block)
             Player.outForEventOperator(self.Screen)
             Map.show_block_floor(self.Screen)
             pygame.display.flip()
@@ -49,24 +49,7 @@ class main:
     def clock_control(self, newClock):
         self.Clock.tick(newClock)
 
-    def check_collision(player, block):
-    # 检查玩家和块的碰撞
-        if player.rect.colliderect(block.rect):
-        # 检查是否在块的上方降落
-            if player.velocity.y > 0:  # 下降时发生碰撞
-                player.rect.bottom = block.rect.top  # 玩家站在块上
-                player.on_ground = True
-                player.velocity.y = 0
 
-        # 检查是否从下方接近块
-            elif player.velocity.y < 0 and player.rect.top < block.rect.bottom:
-                player.rect.top = block.rect.bottom  # 防止穿过块
-                player.velocity.y = 0  # 停止向上的运动
-
-        else:
-        # 如果玩家不在块的水平范围内，则不再算作在地面上
-            if player.rect.right < block.rect.left or player.rect.left > block.rect.right:
-                player.on_ground = False
         
 Run = main()
 Run.run_it()

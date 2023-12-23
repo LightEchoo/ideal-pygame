@@ -103,6 +103,26 @@ class player(pygame.sprite.Sprite):
     def check_img(self):
         pass
 
+    def check_collision(self, block):
+        if self.rect.y < STATIC_DATA.ground_position:  # 地面以上
+            # 检查玩家和块的碰撞
+            if self.rect.colliderect(block.rect):
+                # 检查是否在块的上方降落
+                if self.velocity.y > 0:  # 下降时发生碰撞
+                    self.rect.bottom = block.rect.top  # 玩家站在块上
+                    self.on_ground = True
+                    self.velocity.y = 0
+
+                # 检查是否从下方接近块
+                elif self.velocity.y < 0 and self.rect.top < block.rect.bottom:
+                    self.rect.top = block.rect.bottom  # 防止穿过块
+                    self.velocity.y = 0  # 停止向上的运动
+
+            else:
+                # 如果玩家不在块的水平范围内，则不再算作在地面上
+                if self.rect.right < block.rect.left or self.rect.left > block.rect.right:
+                    self.on_ground = False
+
     def inForEventOperator(self, event):
         # 通过键盘事件控制移动
         if event.type == pygame.KEYDOWN:  # 按下就移动
