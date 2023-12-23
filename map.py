@@ -22,7 +22,7 @@ class map:
     def __init__(self) -> None:
         self.blocks = pygame.sprite.Group()
         self.blocks.add(block_floor(0, 660, 22))
-        self.blocks.add(block_floor(0, 540, 2))
+        self.blocks.add(block_floor(0, 300, 2))
         
     def show_block_floor(self, screen):
         self.blocks.draw(screen)

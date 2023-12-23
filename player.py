@@ -155,25 +155,6 @@ class block(pygame.sprite.Sprite):
 #         self.image = pygame.image.load("imagepath")
 #         self.rect = self.image.get_rect(topleft=(x, y))
 
-def check_collision(player, block):
-    # 检查玩家和块的碰撞
-    if player.rect.colliderect(block.rect):
-        # 检查是否在块的上方降落
-        if player.velocity.y > 0:  # 下降时发生碰撞
-            player.rect.bottom = block.rect.top  # 玩家站在块上
-            player.on_ground = True
-            player.velocity.y = 0
-
-        # 检查是否从下方接近块
-        elif player.velocity.y < 0 and player.rect.top < block.rect.bottom:
-            player.rect.top = block.rect.bottom  # 防止穿过块
-            player.velocity.y = 0  # 停止向上的运动
-
-    else:
-        # 如果玩家不在块的水平范围内，则不再算作在地面上
-        if player.rect.right < block.rect.left or player.rect.left > block.rect.right:
-            player.on_ground = False
-
 if __name__ == "__main__":
     # 初始化界面
     pygame.init()
