@@ -1,10 +1,10 @@
 import pygame
-import math
-# test
-BORDER_LR = 1920
-BORDER_TD = 1080
 
-ground_position = 930
+# test
+BORDER_LR = 1280
+BORDER_TD = 720
+
+ground_position = 600
 
 STATUS = [
     'left', 'right',
@@ -17,6 +17,7 @@ STATUS = [
     'jump_attack_ranged_left', 'jump_attack_ranged_right',
     'walk_attack_ranged_left', 'walk_attack_ranged_right',
 ]
+
 
 class player(pygame.sprite.Sprite):
     def __init__(self):
@@ -71,7 +72,6 @@ class player(pygame.sprite.Sprite):
         self.j1 = False  # 是否正在进行一段跳
         self.j2 = False  # 是否正在进行二段跳
 
-
     def update(self):
         self.moveX()
         self.jump()
@@ -79,7 +79,7 @@ class player(pygame.sprite.Sprite):
 
     def moveX(self):
         self.rect.x += self.velocity.x
-        self.rect.x = max(0, min(self.rect.x, BORDER_LR-self.rect.width))  # 防止出界
+        self.rect.x = max(0, min(self.rect.x, BORDER_LR - self.rect.width))  # 防止出界
 
     def jump(self):
         if not self.on_ground:
@@ -98,11 +98,10 @@ class player(pygame.sprite.Sprite):
             self.on_ground = False
 
     def fall(self):
-        if not player.on_ground:
+        if not self.on_ground:
             # 应用重力
-            player.velocity.y += player.gravity
-            player.rect.y += player.velocity.y
-
+            self.velocity.y += self.gravity
+            self.rect.y += self.velocity.y
 
     def changeHP(self):
         pass
@@ -119,26 +118,25 @@ class player(pygame.sprite.Sprite):
     def check_img(self):
         pass
 
-    @staticmethod
-    def inForEventOperator(event):
+    def inForEventOperator(self, event):
         # 通过键盘事件控制移动
         if event.type == pygame.KEYDOWN:  # 按下就移动
             if event.key == pygame.K_RIGHT:
-                player.velocity.x = player.speed
+                self.velocity.x = self.speed
             elif event.key == pygame.K_LEFT:
-                player.velocity.x = -player.speed
+                self.velocity.x = -self.speed
             # elif event.key == pygame.K_SPACE:
             #     print('发射子弹....')
             elif event.key == pygame.K_UP:
-                player.jump_key()
+                self.jump_key()
         if event.type == pygame.KEYUP:  # 抬起来就不动
             if event.key in [pygame.K_LEFT, pygame.K_RIGHT]:
-                player.velocity.x = 0
+                self.velocity.x = 0
 
-    @staticmethod
-    def outForEventOperator():
-        player.update()
-        screen.blit(player.imgList['right'], player.rect)
+    def outForEventOperator(self):
+        screen.blit(bgImg, (0, 0))
+        self.update()
+        screen.blit(self.imgList['right'], self.rect)
 
 
 class block(pygame.sprite.Sprite):
@@ -148,6 +146,8 @@ class block(pygame.sprite.Sprite):
         self.image = pygame.Surface((width, height))
         self.image.fill((0, 0, 0))  # 给块填充一个颜色
         self.rect = self.image.get_rect(topleft=(x, y))
+
+
 #
 # class block(pygame.sprite.Sprite):
 #     def __init__(self, x, y):
@@ -174,14 +174,15 @@ def check_collision(player, block):
         if player.rect.right < block.rect.left or player.rect.left > block.rect.right:
             player.on_ground = False
 
+
 if __name__ == "__main__":
     # 初始化界面
     pygame.init()
-    screen = pygame.display.set_mode((1920, 1080))
+    screen = pygame.display.set_mode((BORDER_LR, BORDER_TD))
     pygame.display.set_caption('pygame')
     icon = pygame.image.load('images/ufo.png')
     pygame.display.set_icon(icon)
-    bgImg = pygame.image.load('images/bg.jpeg')
+    bgImg = pygame.image.load('images/bg.jpg')
 
     # 添加背景音效
     # pygame.mixer.music.load('resource/bg.wav')
@@ -202,12 +203,11 @@ if __name__ == "__main__":
     running = True
     clock = pygame.time.Clock()
     while running:
-        screen.blit(bgImg, (0, 0))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            player.inForEventOperator()
+            player.inForEventOperator(event)
             # forEventOperator()
 
         # keys = pygame.key.get_pressed()
@@ -236,5 +236,3 @@ if __name__ == "__main__":
         # screen.blit(block.image, block.rect)
         pygame.display.flip()
         clock.tick(120)  # 设置帧率为 120 fps
-
-
