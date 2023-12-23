@@ -2,6 +2,8 @@ import map
 import player
 import pygame
 
+"""Hello"""
+
 class main:
     def __init__(self) -> None:
         self.Window = pygame.init()
