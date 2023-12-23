@@ -1,13 +1,14 @@
 import map
 import player
 import pygame
+import STATIC_DATA
 
 """Hello"""
 
 class main:
     def __init__(self) -> None:
         self.Window = pygame.init()
-        self.Screen = pygame.display.set_mode((1280,720))
+        self.Screen = pygame.display.set_mode((STATIC_DATA.BORDER_LR, STATIC_DATA.BORDER_TD))
         pygame.display.set_caption("Start It!")
         self.Icon = pygame.image.load('images/floor_block.png')
         pygame.display.set_icon(self.Icon)

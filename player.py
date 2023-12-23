@@ -1,22 +1,7 @@
 import pygame
 import math
-# test
-BORDER_LR = 1280
-BORDER_TD = 720
+import STATIC_DATA
 
-ground_position = 600
-
-STATUS = [
-    'left', 'right',
-    'jump_left', 'jump_right',
-    'walk_left', 'walk_right',
-    'attack_melee_left', 'attack_melee_right',
-    'attack_ranged_left', 'attack_ranged_right',
-    'jump_attack_melee_left', 'jump_attack_melee_right',
-    'walk_attack_melee_left', 'walk_attack_melee_right',
-    'jump_attack_ranged_left', 'jump_attack_ranged_right',
-    'walk_attack_ranged_left', 'walk_attack_ranged_right',
-]
 
 class player(pygame.sprite.Sprite):
     def __init__(self):
@@ -28,7 +13,7 @@ class player(pygame.sprite.Sprite):
         self.rect = self.imgList['right'].get_rect()  # 获取图片的尺寸作为精灵的尺寸
 
         self.rect.x = 100
-        self.rect.y = ground_position
+        self.rect.y = STATIC_DATA.ground_position
 
         self.gravity = 0.3  # 重力
         # self.jump_height = 100  # 希望跳跃高度为100像素
@@ -79,14 +64,14 @@ class player(pygame.sprite.Sprite):
 
     def moveX(self):
         self.rect.x += self.velocity.x
-        self.rect.x = max(0, min(self.rect.x, BORDER_LR - self.rect.width))  # 防止出界
+        self.rect.x = max(0, min(self.rect.x, STATIC_DATA.BORDER_LR - self.rect.width))  # 防止出界
 
     def jump(self):
         if not self.on_ground:
             self.velocity.y += self.gravity  # 重力
             self.rect.y += self.velocity.y
-            if self.rect.y > ground_position:  # 检查是否着陆
-                self.rect.y = ground_position
+            if self.rect.y > STATIC_DATA.ground_position:  # 检查是否着陆
+                self.rect.y = STATIC_DATA.ground_position
                 self.on_ground = True
                 self.velocity.y = 0
                 self.jumpCnt = 0  # 重置跳跃次数
@@ -158,7 +143,7 @@ class block(pygame.sprite.Sprite):
 if __name__ == "__main__":
     # 初始化界面
     pygame.init()
-    screen = pygame.display.set_mode((BORDER_LR, BORDER_TD))
+    screen = pygame.display.set_mode((STATIC_DATA.BORDER_LR, STATIC_DATA.BORDER_TD))
     pygame.display.set_caption('pygame')
     icon = pygame.image.load('images/ufo.png')
     pygame.display.set_icon(icon)
