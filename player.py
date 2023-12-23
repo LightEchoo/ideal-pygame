@@ -1,5 +1,5 @@
 import pygame
-
+import math
 # test
 BORDER_LR = 1280
 BORDER_TD = 720
@@ -17,7 +17,6 @@ STATUS = [
     'jump_attack_ranged_left', 'jump_attack_ranged_right',
     'walk_attack_ranged_left', 'walk_attack_ranged_right',
 ]
-
 
 class player(pygame.sprite.Sprite):
     def __init__(self):
@@ -71,6 +70,7 @@ class player(pygame.sprite.Sprite):
 
         self.j1 = False  # 是否正在进行一段跳
         self.j2 = False  # 是否正在进行二段跳
+
 
     def update(self):
         self.moveX()
@@ -133,7 +133,8 @@ class player(pygame.sprite.Sprite):
             if event.key in [pygame.K_LEFT, pygame.K_RIGHT]:
                 self.velocity.x = 0
 
-    def outForEventOperator(self):
+    def outForEventOperator(self, screen):
+        bgImg = pygame.image.load('images/bg.jpeg')
         screen.blit(bgImg, (0, 0))
         self.update()
         screen.blit(self.imgList['right'], self.rect)
@@ -146,8 +147,6 @@ class block(pygame.sprite.Sprite):
         self.image = pygame.Surface((width, height))
         self.image.fill((0, 0, 0))  # 给块填充一个颜色
         self.rect = self.image.get_rect(topleft=(x, y))
-
-
 #
 # class block(pygame.sprite.Sprite):
 #     def __init__(self, x, y):
@@ -173,7 +172,6 @@ def check_collision(player, block):
         # 如果玩家不在块的水平范围内，则不再算作在地面上
         if player.rect.right < block.rect.left or player.rect.left > block.rect.right:
             player.on_ground = False
-
 
 if __name__ == "__main__":
     # 初始化界面
@@ -236,3 +234,5 @@ if __name__ == "__main__":
         # screen.blit(block.image, block.rect)
         pygame.display.flip()
         clock.tick(120)  # 设置帧率为 120 fps
+
+

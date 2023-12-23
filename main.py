@@ -7,7 +7,7 @@ import pygame
 class main:
     def __init__(self) -> None:
         self.Window = pygame.init()
-        self.Screen = pygame.display.set_mode((800,600))
+        self.Screen = pygame.display.set_mode((1280,720))
         pygame.display.set_caption("Start It!")
         self.Icon = pygame.image.load('images/floor_block.png')
         pygame.display.set_icon(self.Icon)
@@ -28,16 +28,18 @@ class main:
         Running = True
         while Running == True:
             for Event in pygame.event.get():
-                main.quit(Event)
+                if Event.type == pygame.QUIT:
+                    Running = False  #判定关闭游戏
+                # Running = main.quit(Event)
                 Player.inForEventOperator(Event) #调用移动函数
             
             # Map.show_block_floor(self.Screen) #生成地图
-            Player.outForEventOperator()
+            Player.outForEventOperator(self.Screen)
             pygame.display.flip()
 
     def quit(Event):
         if Event.type == pygame.QUIT:
-            Running = False  #判定关闭游戏
+            return False  #判定关闭游戏
 
     def clock_control(self, newClock):
         self.Clock.tick(newClock)
