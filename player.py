@@ -4,7 +4,7 @@ import math
 BORDER_LR = 1920
 BORDER_TD = 1080
 
-ground_position = 930
+ground_position = 500
 
 STATUS = [
     'left', 'right',
@@ -27,7 +27,7 @@ class player(pygame.sprite.Sprite):
         self.imgList['right'] = pygame.image.load('images/player_default.png.')
         self.rect = self.imgList['right'].get_rect()  # 获取图片的尺寸作为精灵的尺寸
 
-        self.rect.x = 100
+        self.rect.x = 500
         self.rect.y = ground_position
 
         self.gravity = 0.3  # 重力
@@ -98,10 +98,10 @@ class player(pygame.sprite.Sprite):
             self.on_ground = False
 
     def fall(self):
-        if not player.on_ground:
+        if not self.on_ground:
             # 应用重力
-            player.velocity.y += player.gravity
-            player.rect.y += player.velocity.y
+            self.velocity.y += self.gravity
+            self.rect.y += self.velocity.y
 
 
     def changeHP(self):
@@ -119,26 +119,28 @@ class player(pygame.sprite.Sprite):
     def check_img(self):
         pass
 
-    @staticmethod
-    def inForEventOperator(event):
+    def inForEventOperator(self, event):
         # 通过键盘事件控制移动
         if event.type == pygame.KEYDOWN:  # 按下就移动
             if event.key == pygame.K_RIGHT:
-                player.velocity.x = player.speed
+                self.velocity.x = self.speed
             elif event.key == pygame.K_LEFT:
-                player.velocity.x = -player.speed
+                self.velocity.x = -self.speed
             # elif event.key == pygame.K_SPACE:
             #     print('发射子弹....')
             elif event.key == pygame.K_UP:
-                player.jump_key()
+                self.jump_key()
         if event.type == pygame.KEYUP:  # 抬起来就不动
             if event.key in [pygame.K_LEFT, pygame.K_RIGHT]:
-                player.velocity.x = 0
+                self.velocity.x = 0
+        # self.rect.x += self.velocity.x  # 更新角色 X 位置
 
-    @staticmethod
-    def outForEventOperator():
-        player.update()
-        screen.blit(player.imgList['right'], player.rect)
+
+    def outForEventOperator(self, screen):
+        bgImg = pygame.image.load('images/bg.jpeg')
+        screen.blit(bgImg, (0, 0))
+        self.update()
+        screen.blit(self.imgList['right'], self.rect)
 
 
 class block(pygame.sprite.Sprite):
@@ -203,7 +205,6 @@ if __name__ == "__main__":
     clock = pygame.time.Clock()
     while running:
         screen.blit(bgImg, (0, 0))
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
