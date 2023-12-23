@@ -10,7 +10,7 @@ class map:
                                               y=540, 
                                               height=60, 
                                               width=60, 
-                                              imgPath='/Users/ruochenqi/Documents/2D_game_project/pic/floor_block.png'))
+                                              imgPath='/Users/ruochenqi/Documents/GitHub/ideal-pygame/images/floor_block.png'))
     
     def show_block_floor(self, screen):
         for b in self.blockList:
