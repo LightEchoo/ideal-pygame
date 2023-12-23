@@ -183,7 +183,7 @@ if __name__ == "__main__":
     running = True
     clock = pygame.time.Clock()
     while running:
-
+        bgimage(screen)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False

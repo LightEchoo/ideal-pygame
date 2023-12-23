@@ -15,6 +15,7 @@ class main:
         self.Clock = pygame.time.Clock()
         self.Clock.tick(120) #设置帧数
 
+    @staticmethod
     def get_data():
         Map = map.map()
         Player = player.player()
@@ -35,8 +36,8 @@ class main:
                 Player.inForEventOperator(Event) #调用移动函数
             
             # Map.show_block_floor(self.Screen) #生成地图
-            for block in Map.blocks:
-                main.check_collision(Player, block)
+            # for block in Map.blocks:
+            #     main.check_collision(Player, block)
             Player.outForEventOperator(self.Screen)
             Map.show_block_floor(self.Screen)
             pygame.display.flip()
