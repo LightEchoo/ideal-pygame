@@ -133,7 +133,7 @@ class player(pygame.sprite.Sprite):
             if event.key in [pygame.K_LEFT, pygame.K_RIGHT]:
                 self.velocity.x = 0
 
-    def outForEventOperator(self):
+    def outForEventOperator(self, screen):
         bgImg = pygame.image.load('images/bg.jpg')
         screen.blit(bgImg, (0, 0))
         self.update()
@@ -223,7 +223,7 @@ if __name__ == "__main__":
         #     if event.type == pygame.QUIT:
         #         running = False
 
-        player.outForEventOperator()
+        player.outForEventOperator(screen)
 
         # player.update()
         # # for block in blocks:
