@@ -26,16 +26,23 @@ class main:
         Running = True
         while Running == True:
             for Event in pygame.event.get():
-                if Event.type == pygame.QUIT:
-                    Running = False  #判定关闭游戏
-            # self.Window.blit(Player.image, (tuple(player.Location))) #渲染主角
+                main.quit(Event)
                 Player.operator() #调用移动函数
+            
             Map.show_block_floor(self.Screen) #生成地图
             Player.update()
-            pygame.display.update()
+            pygame.display.flip()
+    pygame.rect
+    def quit(Event):
+        if Event.type == pygame.QUIT:
+            Running = False  #判定关闭游戏
 
-    def event():
-        pass
+    def clock_control(self, newClock):
+        self.Clock = newClock
+
 
 Run = main()
 Run.run_it()
+
+# in Event
+# not in Event
