@@ -120,7 +120,7 @@ class player(pygame.sprite.Sprite):
         pass
 
     @staticmethod
-    def inForEventOperator(self):
+    def inForEventOperator():
         # 通过键盘事件控制移动
         if event.type == pygame.KEYDOWN:  # 按下就移动
             if event.key == pygame.K_RIGHT:
@@ -136,7 +136,7 @@ class player(pygame.sprite.Sprite):
                 player.velocity.x = 0
 
     @staticmethod
-    def outForEventOperator(self):
+    def outForEventOperator():
         player.update()
         screen.blit(player.imgList['right'], player.rect)
 
@@ -174,30 +174,30 @@ def check_collision(player, block):
         if player.rect.right < block.rect.left or player.rect.left > block.rect.right:
             player.on_ground = False
 
-def forEventOperator():
-    # 通过键盘事件控制移动
-    if event.type == pygame.KEYDOWN:  # 按下就移动
-        if event.key == pygame.K_RIGHT:
-            player.velocity.x = player.speed
-        elif event.key == pygame.K_LEFT:
-            player.velocity.x = -player.speed
-        # elif event.key == pygame.K_SPACE:
-        #     print('发射子弹....')
-        elif event.key == pygame.K_UP:
-            player.jump_key()
-    if event.type == pygame.KEYUP:  # 抬起来就不动
-        if event.key in [pygame.K_LEFT, pygame.K_RIGHT]:
-            player.velocity.x = 0
-
-def outForEventOperator():
-    player.update()
-    # for block in blocks:
-    #     check_collision(player, block)  # 检查玩家和块的碰撞
-    # check_collision(player, block)  # 检查玩家和块的碰撞
-    # blocks.draw(screen)
-    screen.blit(player.imgList['right'], player.rect)
-    # screen.blit(block.image, block.rect)
-    pygame.display.flip()
+# def forEventOperator():
+#     # 通过键盘事件控制移动
+#     if event.type == pygame.KEYDOWN:  # 按下就移动
+#         if event.key == pygame.K_RIGHT:
+#             player.velocity.x = player.speed
+#         elif event.key == pygame.K_LEFT:
+#             player.velocity.x = -player.speed
+#         # elif event.key == pygame.K_SPACE:
+#         #     print('发射子弹....')
+#         elif event.key == pygame.K_UP:
+#             player.jump_key()
+#     if event.type == pygame.KEYUP:  # 抬起来就不动
+#         if event.key in [pygame.K_LEFT, pygame.K_RIGHT]:
+#             player.velocity.x = 0
+#
+# def outForEventOperator():
+#     player.update()
+#     # for block in blocks:
+#     #     check_collision(player, block)  # 检查玩家和块的碰撞
+#     # check_collision(player, block)  # 检查玩家和块的碰撞
+#     # blocks.draw(screen)
+#     screen.blit(player.imgList['right'], player.rect)
+#     # screen.blit(block.image, block.rect)
+#     pygame.display.flip()
 
 
 if __name__ == "__main__":
@@ -233,7 +233,7 @@ if __name__ == "__main__":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            player.inForEventOperator(player)
+            player.inForEventOperator()
             # forEventOperator()
 
         # keys = pygame.key.get_pressed()
@@ -251,7 +251,7 @@ if __name__ == "__main__":
         #     if event.type == pygame.QUIT:
         #         running = False
 
-        player.outForEventOperator(player)
+        player.outForEventOperator()
 
         # player.update()
         # # for block in blocks:
