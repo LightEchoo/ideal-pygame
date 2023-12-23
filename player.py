@@ -134,8 +134,8 @@ class player(pygame.sprite.Sprite):
                 self.velocity.x = 0
 
     def outForEventOperator(self, screen):
-        bgImg = pygame.image.load('images/bg.jpg')
-        screen.blit(bgImg, (0, 0))
+        # bgImg = pygame.image.load('images/bg.jpg')
+        # screen.blit(bgImg, (0, 0))
         self.update()
         screen.blit(self.imgList['right'], self.rect)
 

@@ -26,6 +26,7 @@ class main:
         # Player =  main.get_data()
         Running = True
         while Running == True:
+            Player.outForEventOperator(self.Screen)
             for Event in pygame.event.get():
                 if Event.type == pygame.QUIT:
                     Running = False  #判定关闭游戏
@@ -34,7 +35,6 @@ class main:
             
             # Map.show_block_floor(self.Screen) #生成地图
             Map.show_block_floor(self.Screen)
-            Player.outForEventOperator()
             pygame.display.flip()
 
     def quit(Event):
