@@ -27,12 +27,12 @@ class main:
         while Running == True:
             for Event in pygame.event.get():
                 main.quit(Event)
-                Player.operator() #调用移动函数
+                Player.forEventOperator() #调用移动函数
             
             Map.show_block_floor(self.Screen) #生成地图
-            Player.update()
+            Player.outForEventOperator()
             pygame.display.flip()
-    pygame.rect
+
     def quit(Event):
         if Event.type == pygame.QUIT:
             Running = False  #判定关闭游戏
