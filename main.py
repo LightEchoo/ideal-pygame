@@ -1,5 +1,5 @@
 import map
-# import player
+import player
 import pygame
 
 class main:
