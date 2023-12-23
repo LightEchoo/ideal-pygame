@@ -122,9 +122,16 @@ class player(pygame.sprite.Sprite):
 class block(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
         super().__init__()
+
         self.image = pygame.Surface((width, height))
         self.image.fill((0, 0, 0))  # 给块填充一个颜色
         self.rect = self.image.get_rect(topleft=(x, y))
+#
+# class block(pygame.sprite.Sprite):
+#     def __init__(self, x, y):
+#         super().__init__()
+#         self.image = pygame.image.load("imagepath")
+#         self.rect = self.image.get_rect(topleft=(x, y))
 
 def check_collision(player, block):
     # 检查玩家和块的碰撞
@@ -145,7 +152,7 @@ def check_collision(player, block):
         if player.rect.right < block.rect.left or player.rect.left > block.rect.right:
             player.on_ground = False
 
-def operator():
+def forEventOperator():
     # 通过键盘事件控制移动
     if event.type == pygame.KEYDOWN:  # 按下就移动
         if event.key == pygame.K_RIGHT:
@@ -159,6 +166,16 @@ def operator():
     if event.type == pygame.KEYUP:  # 抬起来就不动
         if event.key in [pygame.K_LEFT, pygame.K_RIGHT]:
             player.velocity.x = 0
+
+def outForEventOperator():
+    player.update()
+    # for block in blocks:
+    #     check_collision(player, block)  # 检查玩家和块的碰撞
+    # check_collision(player, block)  # 检查玩家和块的碰撞
+    # blocks.draw(screen)
+    screen.blit(player.imgList['right'], player.rect)
+    # screen.blit(block.image, block.rect)
+
 
 if __name__ == "__main__":
     # 初始化界面
@@ -193,21 +210,7 @@ if __name__ == "__main__":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            # # 通过键盘事件控制移动
-            # if event.type == pygame.KEYDOWN:  # 按下就移动
-            #     if event.key == pygame.K_RIGHT:
-            #         player.velocity.x = player.speed
-            #     elif event.key == pygame.K_LEFT:
-            #         player.velocity.x = -player.speed
-            #     # elif event.key == pygame.K_SPACE:
-            #     #     print('发射子弹....')
-            #     elif event.key == pygame.K_UP:
-            #         player.jump_key()
-            # if event.type == pygame.KEYUP:  # 抬起来就不动
-            #     if event.key in [pygame.K_LEFT, pygame.K_RIGHT]:
-            #         player.velocity.x = 0
-
-            operator()
+            forEventOperator()
 
         # keys = pygame.key.get_pressed()
         # if keys[pygame.K_LEFT]:
@@ -224,12 +227,14 @@ if __name__ == "__main__":
         #     if event.type == pygame.QUIT:
         #         running = False
 
-        player.update()
-        # for block in blocks:
-        #     check_collision(player, block)  # 检查玩家和块的碰撞
-        check_collision(player, block)  # 检查玩家和块的碰撞
-        # blocks.draw(screen)
-        screen.blit(player.imgList['right'], player.rect)
-        screen.blit(block.image, block.rect)
-        pygame.display.flip()
-        clock.tick(120)  # 设置帧率为 120 fps
+        outForEventOperator()
+
+        # player.update()
+        # # for block in blocks:
+        # #     check_collision(player, block)  # 检查玩家和块的碰撞
+        # check_collision(player, block)  # 检查玩家和块的碰撞
+        # # blocks.draw(screen)
+        # screen.blit(player.imgList['right'], player.rect)
+        # screen.blit(block.image, block.rect)
+        # pygame.display.flip()
+        # clock.tick(120)  # 设置帧率为 120 fps
