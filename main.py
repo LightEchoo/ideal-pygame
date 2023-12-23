@@ -29,7 +29,7 @@ class main:
         while Running == True:
             for Event in pygame.event.get():
                 main.quit(Event)
-                Player.forEventOperator() #调用移动函数
+                Player.inForEventOperator(Event) #调用移动函数
             
             # Map.show_block_floor(self.Screen) #生成地图
             Player.outForEventOperator()

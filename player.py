@@ -120,7 +120,7 @@ class player(pygame.sprite.Sprite):
         pass
 
     @staticmethod
-    def inForEventOperator():
+    def inForEventOperator(event):
         # 通过键盘事件控制移动
         if event.type == pygame.KEYDOWN:  # 按下就移动
             if event.key == pygame.K_RIGHT:
